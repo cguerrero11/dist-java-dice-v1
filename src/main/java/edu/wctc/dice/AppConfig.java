@@ -22,4 +22,9 @@ public class AppConfig {
 //        return new ConsoleInput();
         return new PopupInput();
     }
+    @Bean
+    public Dice dice() {
+
+        return new Dice6Sided();
+    }
 }

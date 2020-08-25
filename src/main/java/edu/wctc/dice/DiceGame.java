@@ -14,15 +14,17 @@ import java.util.Random;
 public class DiceGame {
     private GameInput in;
     private GameOutput out;
+    private Dice dice;
 
     private List<Player> players = new ArrayList<>();
     private int currentRound = 1;
 
 
     @Autowired
-    public DiceGame(GameInput in, GameOutput out) {
+    public DiceGame(GameInput in, GameOutput out, Dice dice) {
         this.in = in;
         this.out = out;
+        this.dice = dice;
         System.out.println("DiceGame created");
     }
 
@@ -113,9 +115,11 @@ public class DiceGame {
         out.output(report);
     }
 
+    private Dice dieroller;
     private boolean rollDice() {
-        int die1 = rollDie();
-        int die2 = rollDie();
+        dieroller = dice;
+        int die1 = dieroller.rollDie();
+        int die2 = dieroller.rollDie();
 
         // Players win on even totals
         boolean even = (die1 + die2) % 2 == 0;
@@ -129,9 +133,4 @@ public class DiceGame {
         return even;
     }
 
-    private int rollDie() {
-        Random random = new Random();
-        return random.nextInt(6) + 1;
-//        return dieRoller.rollDie();
-    }
 }
